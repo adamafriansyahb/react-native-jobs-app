@@ -1,6 +1,10 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, TextStyle, ViewStyle } from 'react-native';
+import { COLORS, FONT, SIZES } from '@/constants';
 
-import { COLORS, FONT, SIZES } from '../../../constants';
+type TabStyle = {
+  tab: ViewStyle;
+  tabText: TextStyle;
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -56,17 +60,22 @@ const styles = StyleSheet.create({
     width: '100%',
     marginTop: SIZES.medium,
   },
-  tab: (activeJobType, item) => ({
-    paddingVertical: SIZES.small / 2,
-    paddingHorizontal: SIZES.small,
-    borderRadius: SIZES.medium,
-    borderWidth: 1,
-    borderColor: activeJobType === item ? COLORS.secondary : COLORS.gray2,
-  }),
-  tabText: (activeJobType, item) => ({
-    fontFamily: FONT.medium,
-    color: activeJobType === item ? COLORS.secondary : COLORS.gray2,
-  }),
 });
 
-export default styles;
+const tabStyles = (isActive: boolean) => {
+  return StyleSheet.create<TabStyle>({
+    tab: {
+      paddingVertical: SIZES.small / 2,
+      paddingHorizontal: SIZES.small,
+      borderRadius: SIZES.medium,
+      borderWidth: 1,
+      borderColor: isActive ? COLORS.secondary : COLORS.gray2,
+    },
+    tabText: {
+      fontFamily: FONT.medium,
+      color: isActive ? COLORS.secondary : COLORS.gray2,
+    },
+  });
+};
+
+export { styles, tabStyles };
